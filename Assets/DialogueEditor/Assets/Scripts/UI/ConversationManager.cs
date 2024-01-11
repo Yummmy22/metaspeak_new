@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Zetcil;
 
 namespace DialogueEditor
 {
@@ -56,7 +57,9 @@ namespace DialogueEditor
         public UIConversationButton ButtonPrefab;
         // Default values
         public Sprite BlankSprite;
-
+        // Voice Recognition
+        public WindowsSpeechRecognition speechRecognition;
+        
         // Getter properties
         public bool IsConversationActive
         {
