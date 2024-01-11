@@ -22,7 +22,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
         // Update the isCharacterMoving boolean based on the character's movement
         isCharacterMoving = direction.magnitude >= 0.1f;
-
+        
         // Set the isMoving boolean in the Animator
         animator.SetBool("isMoving", isCharacterMoving);
 
