@@ -1,16 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events; // Import the namespace for UnityEvent
+using UnityEngine.Events;
 using DialogueEditor;
 
 public class ConversationStarter : MonoBehaviour
 {
     [SerializeField] private NPCConversation myConversation;
 
-    // Define UnityEvents for start and end of the conversation
-    public UnityEvent onConversationStart;
-    public UnityEvent onConversationEnd;
+    // Define UnityEvents for different stages of the conversation
+    public UnityEvent onPlayerEnterTrigger; // Event when the player enters the trigger
+    public UnityEvent onPlayerExitTrigger;
+    public UnityEvent onConversationStart; // Event when the conversation starts
+    public UnityEvent onConversationEnd; // Event when the conversation ends
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // Invoke the event when the player enters the trigger
+            onPlayerEnterTrigger.Invoke();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            onPlayerExitTrigger.Invoke();
+        }
+    }
 
     void OnTriggerStay(Collider other)
     {
@@ -19,7 +38,6 @@ public class ConversationStarter : MonoBehaviour
             // Invoke the start event and start the conversation
             onConversationStart.Invoke();
             ConversationManager.Instance.StartConversation(myConversation);
-            // Optional: You may want to unsubscribe and then resubscribe to ensure it's only called once per conversation
             ConversationManager.OnConversationEnded -= OnConversationEnded;
             ConversationManager.OnConversationEnded += OnConversationEnded;
         }
@@ -29,7 +47,6 @@ public class ConversationStarter : MonoBehaviour
     {
         // Invoke the end event
         onConversationEnd.Invoke();
-        // Unsubscribe from the event
         ConversationManager.OnConversationEnded -= OnConversationEnded;
     }
 }

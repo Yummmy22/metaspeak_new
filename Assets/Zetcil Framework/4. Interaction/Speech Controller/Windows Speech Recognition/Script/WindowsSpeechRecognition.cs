@@ -48,13 +48,13 @@ namespace Zetcil
         [Header("Variable Settings")]
         public string TargetString;
 
-        public void EnableUnitySetting()
+        public void EnableSpeech()
         {
             isEnabled = true;
             usingEventSetting = true;
         }
 
-        public void DisableUnitySetting()
+        public void DisableSpeech()
         {
             isEnabled = false;
             usingEventSetting = false;
